@@ -1,6 +1,10 @@
 import java.util.Scanner;
 public class Main {
-    Scanner Scan = new Scanner(System.in);
+
+    public Main(){ Scan = new Scanner(System.in); }
+    @Override
+    protected void finalize(){ Scan.close(); }
+    Scanner Scan;
     int         ex;
     private double t;
     private final double PI = 3.14;
@@ -47,9 +51,13 @@ public class Main {
             else if (Fx.ex == 2) {
                 double temp;
                 if (Fx.PromptI("Saisir x : ") && Fxt.PromptI("Saisir y : ")){
-                    System.out.println("Valeur avant permutation\nx = " + (int) Fx.t + "\ny = " + (int) Fxt.t);
+                    System.out.println("Valeur avant permutation");
+                    System.out.println(" x est = " + (int) Fx.t + " et il est enregiste a l'adresse " + System.identityHashCode(Fx.t));
+                    System.out.println(" Y est = " + (int) Fxt.t + " et il est enregiste a l'adresse " + System.identityHashCode(Fxt.t));
                     temp = Fx.t; Fx.t = Fxt.t; Fxt.t = temp;
-                    System.out.println("Valeur apres permutation\nx = " + (int) Fx.t + "\ny = " + (int) Fxt.t);
+                    System.out.println("Valeur apres permutation");
+                    System.out.println(" x est = " + (int) Fx.t + " et il est enregiste a l'adresse ");// + VM.current().addressOf(Fx.t));
+                    System.out.println(" Y est = " + (int) Fxt.t + " et il est enregiste a l'adresse " + System.identityHashCode(Fxt.t));
                 }
             }
             else if (Fx.ex == 3) {
@@ -86,5 +94,7 @@ public class Main {
             Fx.t = 0;
             Fxt.t = 0;
         }
+        Fx.finalize();
+        Fxt.finalize();
     }
 }
